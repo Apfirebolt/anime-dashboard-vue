@@ -66,7 +66,7 @@
                 class="relative text-left"
               >
                 <MenuButton
-                  class="flex items-center text-sm font-medium text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600"
+                  class="flex items-center px-3 py-2 text-sm font-medium text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-800"
                 >
                   <span>{{ item.name }}</span>
                   <ChevronDownIcon
@@ -89,6 +89,7 @@
                     <div class="py-1">
                       <MenuItem
                         v-for="child in item.children"
+                        @click="navigateTo(child.routeName)"
                         :key="child.name"
                         v-slot="{ active }"
                       >
@@ -108,7 +109,6 @@
               </Menu>
               <a
                 v-else
-                :href="item.href"
                 class="text-sm font-medium text-gray-900"
                 >{{ item.name }}</a
               >
@@ -235,25 +235,15 @@
                     class="block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-100"
                     >{{ item.name }}</a
                   >
-                  <a
+                  <button
+                    @click="navigateTo(child.routeName)"
                     v-for="child in item.children"
                     :key="child.name"
                     :href="child.href"
                     class="block rounded-md py-2 pl-5 pr-3 text-base font-medium text-gray-500 hover:bg-gray-100"
-                    >{{ child.name }}</a
-                  >
+                    >{{ child.name }}
+                  </button>
                 </template>
-              </div>
-              <div class="border-t border-gray-200 pt-4 pb-3">
-                <div class="mt-3 max-w-8xl mx-auto px-2 space-y-1 sm:px-4">
-                  <a
-                    v-for="item in userNavigation"
-                    :key="item.name"
-                    :href="item.href"
-                    class="block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-50"
-                    >{{ item.name }}</a
-                  >
-                </div>
               </div>
             </nav>
           </TransitionChild>
@@ -355,6 +345,7 @@
 <script setup>
 import { ref, computed, watch, onMounted } from "vue";
 import { useAnime } from "../store/anime";
+import { useRouter } from "vue-router";
 import Loader from "../components/Loader.vue";
 import Logo from "../assets/logo.png";
 import {
@@ -374,18 +365,14 @@ import {
 } from "@heroicons/vue/solid";
 import {
   ArchiveIcon as ArchiveIconOutline,
-  BanIcon,
-  FlagIcon,
-  InboxIcon,
   MenuIcon,
-  PencilAltIcon,
-  UserCircleIcon,
   XIcon,
 } from "@heroicons/vue/outline";
 
 const open = ref(false);
 const anime = useAnime();
 const searchText = ref("");
+const router = useRouter();
 let timeoutId;
 
 const debouncedSearch = (value) => {
@@ -408,20 +395,19 @@ const isLoadingAnimeList = computed(() => anime.isLoading);
 
 const navigation = [
   {
-    name: "Inboxes",
-    href: "#",
+    name: "Pages",
     children: [
-      { name: "Technical Support", href: "#" },
-      { name: "Sales", href: "#" },
-      { name: "General", href: "#" },
+      { name: "People", routeName: "People" },
+      { name: "Characters", routeName: "Character" },
+      { name: "Manga", routeName: "Manga" },
     ],
   },
 ];
 
-const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Sign out", href: "#" },
-];
+const navigateTo = (routeName) => {
+  console.log('Now rouing to ', routeName);
+  router.push({ name: routeName });
+};
 
 onMounted(() => {
   // Cleanup function to clear timeout on component unmount

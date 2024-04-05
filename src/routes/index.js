@@ -9,9 +9,19 @@ const routes = [
         component: Home
     },
     {
-        path: '/dashboard',
-        name: 'Dashboard',
-        component: () => import('../views/Dashboard.vue')
+        path: '/manga',
+        name: 'Manga',
+        component: () => import('../views/Manga.vue')
+    },
+    {
+        path: '/character',
+        name: 'Character',
+        component: () => import('../views/Characters.vue')
+    },
+    {
+        path: '/people',
+        name: 'People',
+        component: () => import('../views/People.vue')
     },
     {
         path: '/:catchAll(.*)',
