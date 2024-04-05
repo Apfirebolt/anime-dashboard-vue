@@ -26,10 +26,10 @@ onMounted(() => {
 }
 
 .loader-circle {
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
-    border: 4px solid #000;
+    border: 4px solid #901313;
     border-top-color: transparent;
     animation: spin 1s linear infinite;
 }
