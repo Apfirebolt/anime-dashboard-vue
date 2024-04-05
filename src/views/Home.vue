@@ -8,11 +8,7 @@
           href="#"
           class="flex items-center justify-center h-16 w-16 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-600 lg:w-20"
         >
-          <img
-            class="h-16 w-auto"
-            :src=Logo
-            alt="Workflow"
-          />
+          <img class="h-16 w-auto" :src="Logo" alt="Workflow" />
         </a>
       </div>
 
@@ -107,11 +103,9 @@
                   </MenuItems>
                 </transition>
               </Menu>
-              <a
-                v-else
-                class="text-sm font-medium text-gray-900"
-                >{{ item.name }}</a
-              >
+              <a v-else class="text-sm font-medium text-gray-900">{{
+                item.name
+              }}</a>
             </template>
           </nav>
           <div class="flex items-center space-x-8">
@@ -241,7 +235,8 @@
                     :key="child.name"
                     :href="child.href"
                     class="block rounded-md py-2 pl-5 pr-3 text-base font-medium text-gray-500 hover:bg-gray-100"
-                    >{{ child.name }}
+                  >
+                    {{ child.name }}
                   </button>
                 </template>
               </div>
@@ -302,9 +297,10 @@
               </div>
             </div>
             <div class="w-full md:w-1/2 flex justify-center md:justify-end">
-              <img 
-              class="py-3 px-2"
-              src="https://static1.cbrimages.com/wordpress/wp-content/uploads/2020/09/Death-Note-Light-L-and-Ryuk-Cropped.jpg?q=50&fit=contain&w=1140&h=&dpr=1.5" />
+              <img
+                class="py-3 px-2"
+                src="https://static1.cbrimages.com/wordpress/wp-content/uploads/2020/09/Death-Note-Light-L-and-Ryuk-Cropped.jpg?q=50&fit=contain&w=1140&h=&dpr=1.5"
+              />
             </div>
           </div>
         </div>
@@ -312,6 +308,13 @@
           aria-labelledby="message-heading"
           class="min-w-0 flex-1 h-full flex flex-col overflow-hidden xl:order-last"
         >
+          <Pagination
+            v-if="animeList && animeList.pagination"
+            :totalPages="animeList.pagination.last_visible_page"
+            :currentPage="animeList.pagination.current_page"
+            :nextPage="animeList.pagination.has_next_page"
+            :onPageChange="onPageChange"
+          />
           <div
             v-if="!isLoadingAnimeList"
             class="min-h-0 flex-1 overflow-y-auto"
@@ -347,6 +350,7 @@ import { ref, computed, watch, onMounted } from "vue";
 import { useAnime } from "../store/anime";
 import { useRouter } from "vue-router";
 import Loader from "../components/Loader.vue";
+import Pagination from "../components/Pagination.vue";
 import Logo from "../assets/logo.png";
 import {
   Dialog,
@@ -372,6 +376,8 @@ import {
 const open = ref(false);
 const anime = useAnime();
 const searchText = ref("");
+const itemsPerPage = ref(10);
+const currentPage = ref(1);
 const router = useRouter();
 let timeoutId;
 
@@ -405,8 +411,13 @@ const navigation = [
 ];
 
 const navigateTo = (routeName) => {
-  console.log('Now rouing to ', routeName);
   router.push({ name: routeName });
+};
+
+const onPageChange = async (page) => {
+  currentPage.value = page;
+  console.log("Page changed to: ", page);
+  await anime.searchAnimeAction(searchText.value, page);
 };
 
 onMounted(() => {

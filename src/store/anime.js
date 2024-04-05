@@ -22,10 +22,15 @@ export const useAnime = defineStore("item", {
   },
 
   actions: {
-    async searchAnimeAction(name) {
+    async searchAnimeAction(name, page = 1) {
       try {
         this.loading = true;
-        const response = await httpClient.get(`anime?q=${name}&sfw`);
+        const response = await httpClient.get(`anime`, {
+          params: {
+            q: name,
+            page: page,
+          },
+        });
         if (response) {
             this.animeList = response.data;
             this.loading = false;
