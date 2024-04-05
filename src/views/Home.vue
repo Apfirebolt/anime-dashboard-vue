@@ -6,11 +6,11 @@
       <div class="absolute inset-y-0 left-0 lg:static lg:flex-shrink-0">
         <a
           href="#"
-          class="flex items-center justify-center h-16 w-16 bg-cyan-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-600 lg:w-20"
+          class="flex items-center justify-center h-16 w-16 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-600 lg:w-20"
         >
           <img
-            class="h-8 w-auto"
-            src="https://tailwindui.com/img/logos/workflow-mark.svg?color=white"
+            class="h-16 w-auto"
+            :src=Logo
             alt="Workflow"
           />
         </a>
@@ -262,14 +262,70 @@
     </header>
 
     <!-- Bottom section -->
-    <div class="min-h-0 flex-1 flex overflow-hidden">
+    <div class="min-h-0 overflow-hidden">
       <!-- Main area -->
-      <main class="min-w-0 flex-1 border-t border-gray-200 xl:flex">
+      <main class="min-w-0 border-t border-gray-200">
+        <div
+          v-if="isLoadingAnimeList"
+          class="flex justify-center items-center my-3"
+        >
+          <Loader />
+        </div>
+        <div
+          class="flex px-6 md:px-12 items-center justify-center bg-hero overflow-hidden"
+        >
+          <div class="flex flex-col gap-6 md:flex-row items-center max-w-8xl">
+            <div class="w-full md:w-1/2 lg:pr-32">
+              <h2
+                class="text-4xl lg:text-5xl text-center md:text-left text-blue-900 leading-tight font-medium"
+              >
+                Jikan API
+              </h2>
+              <h3
+                class="mt-6 md:mt-10 text-md lg:text-xl text-center md:text-left text-gray-700 font-light tracking-wider leading-relaxed"
+              >
+                Jikan is an unofficial api for the website called "myAnimeList".
+                It has a lot of useful end-points to be used to call.
+              </h3>
+              <p
+                v-if="animeList && animeList.data && animeList.data.length > 0"
+              >
+                <span class="text-sm text-gray-500">Showing results for </span>
+                <span class="text-sm font-medium text-gray-500"
+                  >"{{ searchText }}"</span
+                >
+              </p>
+              <div
+                class="mt-10 flex flex-col sm:flex-row justify-center md:justify-start"
+              >
+                <a
+                  href="https://docs.api.jikan.moe/"
+                  class="w-full sm:w-40 px-4 py-3 rounded font-semibold text-md bg-blue-500 text-white border-2 border-blue-500"
+                >
+                  Read the Docs
+                </a>
+                <button
+                  class="w-full mt-4 sm:mt-0 sm:ml-4 sm:w-40 px-4 py-3 rounded font-semibold text-md bg-white text-blue-500 border-2 border-gray-500"
+                >
+                  Watch a Demo
+                </button>
+              </div>
+            </div>
+            <div class="w-full md:w-1/2 flex justify-center md:justify-end">
+              <img 
+              class="py-3 px-2"
+              src="https://static1.cbrimages.com/wordpress/wp-content/uploads/2020/09/Death-Note-Light-L-and-Ryuk-Cropped.jpg?q=50&fit=contain&w=1140&h=&dpr=1.5" />
+            </div>
+          </div>
+        </div>
         <section
           aria-labelledby="message-heading"
           class="min-w-0 flex-1 h-full flex flex-col overflow-hidden xl:order-last"
         >
-          <div v-if="!isLoadingAnimeList" class="min-h-0 flex-1 overflow-y-auto">
+          <div
+            v-if="!isLoadingAnimeList"
+            class="min-h-0 flex-1 overflow-y-auto"
+          >
             <!-- Thread section-->
             <ul role="list" class="py-4 space-y-2 sm:px-6 sm:space-y-4 lg:px-8">
               <li
@@ -290,9 +346,6 @@
               </li>
             </ul>
           </div>
-          <div v-else class="flex justify-center items-center my-3">
-            <Loader />
-          </div>
         </section>
       </main>
     </div>
@@ -303,6 +356,7 @@
 import { ref, computed, watch, onMounted } from "vue";
 import { useAnime } from "../store/anime";
 import Loader from "../components/Loader.vue";
+import Logo from "../assets/logo.png";
 import {
   Dialog,
   DialogOverlay,
