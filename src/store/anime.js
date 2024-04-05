@@ -32,8 +32,8 @@ export const useAnime = defineStore("item", {
           },
         });
         if (response) {
-            this.animeList = response.data;
-            this.loading = false;
+          this.animeList = response.data;
+          this.loading = false;
         }
       } catch (error) {
         console.log(error);
@@ -52,7 +52,7 @@ export const useAnime = defineStore("item", {
         this.anime = response.data;
       } catch (error) {
         console.log(error);
-        return error
+        return error;
       }
     },
 

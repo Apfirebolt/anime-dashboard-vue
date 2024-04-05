@@ -328,13 +328,17 @@
               >
                 <div class="sm:flex sm:justify-between sm:items-baseline">
                   <h3 class="text-base font-medium">
-                    <span class="text-gray-900">{{ item.title }}</span>
+                    <span class="text-primary-700 text-lg">{{ item.title }}</span>
                   </h3>
                 </div>
                 <div class="mt-4 space-y-6 text-sm text-gray-800">
                   <p>
                     {{ item.synopsis }}
                   </p>
+                </div>
+                <!--Contains images-->
+                <div v-if="item.images && item.images.jpg" class="my-3 flex justify-center">
+                  <img :src="item.images.jpg.image_url" alt="" class="shadow-lg rounded-md">
                 </div>
               </li>
             </ul>
@@ -416,7 +420,6 @@ const navigateTo = (routeName) => {
 
 const onPageChange = async (page) => {
   currentPage.value = page;
-  console.log("Page changed to: ", page);
   await anime.searchAnimeAction(searchText.value, page);
 };
 
