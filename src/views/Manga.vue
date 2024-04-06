@@ -35,7 +35,6 @@ const fetchData = async () => {
   let response2 = await p1;
   if (response && response2) {
     dataLoaded.value = true;
-    console.log('Response ', response.data.data)
     apiData.value = response.data.data;
   }
 }

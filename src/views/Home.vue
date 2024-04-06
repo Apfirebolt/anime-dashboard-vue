@@ -3,15 +3,7 @@
     <!-- Top nav-->
     <header class="flex-shrink-0 relative h-16 bg-white flex items-center">
       <!-- Logo area -->
-      <div class="absolute inset-y-0 left-0 lg:static lg:flex-shrink-0">
-        <a
-          href="#"
-          class="flex items-center justify-center h-16 w-16 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-600 lg:w-20"
-        >
-          <img class="h-16 w-auto" :src="Logo" alt="Workflow" />
-        </a>
-      </div>
-
+      <Logo />
       <!-- Menu button area -->
       <div
         class="absolute inset-y-0 right-0 pr-4 flex items-center sm:pr-6 lg:hidden"
@@ -53,103 +45,8 @@
             </div>
           </div>
         </div>
-        <div class="ml-10 pr-4 flex-shrink-0 flex items-center space-x-10">
-          <nav aria-label="Global" class="flex space-x-10">
-            <template v-for="item in navigation" :key="item.name">
-              <Menu
-                as="div"
-                v-if="item.children.length"
-                class="relative text-left"
-              >
-                <MenuButton
-                  class="flex items-center px-3 py-2 text-sm font-medium text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-800"
-                >
-                  <span>{{ item.name }}</span>
-                  <ChevronDownIcon
-                    class="ml-1 h-5 w-5 text-gray-500"
-                    aria-hidden="true"
-                  />
-                </MenuButton>
-
-                <transition
-                  enter-active-class="transition ease-out duration-100"
-                  enter-from-class="transform opacity-0 scale-95"
-                  enter-to-class="transform opacity-100 scale-100"
-                  leave-active-class="transition ease-in duration-75"
-                  leave-from-class="transform opacity-100 scale-100"
-                  leave-to-class="transform opacity-0 scale-95"
-                >
-                  <MenuItems
-                    class="origin-top-right absolute z-30 right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-                  >
-                    <div class="py-1">
-                      <MenuItem
-                        v-for="child in item.children"
-                        @click="navigateTo(child.routeName)"
-                        :key="child.name"
-                        v-slot="{ active }"
-                      >
-                        <a
-                          :href="child.href"
-                          :class="[
-                            active ? 'bg-gray-100' : '',
-                            'block px-4 py-2 text-sm text-gray-700',
-                          ]"
-                        >
-                          {{ child.name }}
-                        </a>
-                      </MenuItem>
-                    </div>
-                  </MenuItems>
-                </transition>
-              </Menu>
-              <a v-else class="text-sm font-medium text-gray-900">{{
-                item.name
-              }}</a>
-            </template>
-          </nav>
-          <div class="flex items-center space-x-8">
-            <Menu as="div" class="relative inline-block text-left">
-              <transition
-                enter-active-class="transition ease-out duration-100"
-                enter-from-class="transform opacity-0 scale-95"
-                enter-to-class="transform opacity-100 scale-100"
-                leave-active-class="transition ease-in duration-75"
-                leave-from-class="transform opacity-100 scale-100"
-                leave-to-class="transform opacity-0 scale-95"
-              >
-                <MenuItems
-                  class="origin-top-right absolute z-30 right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-                >
-                  <div class="py-1">
-                    <MenuItem v-slot="{ active }">
-                      <a
-                        href="#"
-                        :class="[
-                          active ? 'bg-gray-100' : '',
-                          'block px-4 py-2 text-sm text-gray-700',
-                        ]"
-                      >
-                        Your Profile
-                      </a>
-                    </MenuItem>
-                    <MenuItem v-slot="{ active }">
-                      <a
-                        href="#"
-                        :class="[
-                          active ? 'bg-gray-100' : '',
-                          'block px-4 py-2 text-sm text-gray-700',
-                        ]"
-                      >
-                        Sign Out
-                      </a>
-                    </MenuItem>
-                  </div>
-                </MenuItems>
-              </transition>
-            </Menu>
-          </div>
-        </div>
+        <!-- Dropdown -->
+        <Dropdown :navigate-to="navigateTo" :navigation="navigation" />
       </div>
 
       <!-- Mobile menu, show/hide this `div` based on menu open/closed state -->
@@ -328,7 +225,9 @@
               >
                 <div class="sm:flex sm:justify-between sm:items-baseline">
                   <h3 class="text-base font-medium">
-                    <span class="text-primary-700 text-lg">{{ item.title }}</span>
+                    <span class="text-primary-700 text-lg">{{
+                      item.title
+                    }}</span>
                   </h3>
                 </div>
                 <div class="mt-4 space-y-6 text-sm text-gray-800">
@@ -337,8 +236,15 @@
                   </p>
                 </div>
                 <!--Contains images-->
-                <div v-if="item.images && item.images.jpg" class="my-3 flex justify-center">
-                  <img :src="item.images.jpg.image_url" alt="" class="shadow-lg rounded-md">
+                <div
+                  v-if="item.images && item.images.jpg"
+                  class="my-3 flex justify-center"
+                >
+                  <img
+                    :src="item.images.jpg.image_url"
+                    alt=""
+                    class="shadow-lg rounded-md"
+                  />
                 </div>
               </li>
             </ul>
@@ -355,20 +261,17 @@ import { useAnime } from "../store/anime";
 import { useRouter } from "vue-router";
 import Loader from "../components/Loader.vue";
 import Pagination from "../components/Pagination.vue";
-import Logo from "../assets/logo.png";
+import Dropdown from "../components/Dropdown.vue";
+import { navigation } from "../constants/common";
+import Logo from "../components/Logo.vue";
 import {
   Dialog,
   DialogOverlay,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
   TransitionChild,
   TransitionRoot,
 } from "@headlessui/vue";
 import {
   ArchiveIcon as ArchiveIconSolid,
-  ChevronDownIcon,
   SearchIcon,
 } from "@heroicons/vue/solid";
 import {
@@ -380,7 +283,6 @@ import {
 const open = ref(false);
 const anime = useAnime();
 const searchText = ref("");
-const itemsPerPage = ref(10);
 const currentPage = ref(1);
 const router = useRouter();
 let timeoutId;
@@ -402,17 +304,6 @@ const searchAnimeUtil = () => {
 
 const animeList = computed(() => anime.getAnimeList);
 const isLoadingAnimeList = computed(() => anime.isLoading);
-
-const navigation = [
-  {
-    name: "Pages",
-    children: [
-      { name: "People", routeName: "People" },
-      { name: "Characters", routeName: "Character" },
-      { name: "Manga", routeName: "Manga" },
-    ],
-  },
-];
 
 const navigateTo = (routeName) => {
   router.push({ name: routeName });
