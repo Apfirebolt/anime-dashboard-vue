@@ -266,8 +266,8 @@ import {
 } from "@heroicons/vue/outline";
 
 const open = ref(false);
-const manga = useManga();
 const searchText = ref("");
+const manga = useManga();
 const currentPage = ref(1);
 const router = useRouter();
 let timeoutId;
@@ -283,7 +283,7 @@ const debouncedSearch = (value) => {
 
 watch(searchText, debouncedSearch);
 
-const searchMangaUtil = () => {
+const searchMangaUtil = async () => {
   manga.searchMangaAction(searchText.value);
 };
 

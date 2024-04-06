@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import httpClient from "../plugins/interceptor";
 
-export const useManga = defineStore("item", {
+export const useManga = defineStore("manga", {
   state: () => ({
     manga: ref({}),
     mangaList: ref([]),
