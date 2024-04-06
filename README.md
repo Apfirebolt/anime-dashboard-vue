@@ -90,6 +90,20 @@ npx npm-check-updates -u
 npm i
 ```
 
+## Docker Deployment
+
+1. Build the image from the given Dockerfile, give it a intuitive name 'anime-dashboard'.
+
+```
+docker build -t anime-dashboard . 
+```
+
+2. Run the Docker container on port 4200 which is the default port used by Angular Applications.
+
+```
+docker run -p 4200:80 --name dashboard anime-dashboard
+```
+
 ## Issues
 
 No issues as of now, issues would be added here to be addressed later.
