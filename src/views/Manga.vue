@@ -299,7 +299,7 @@ const onPageChange = async (page) => {
   await manga.searchMangaAction(searchText.value, page);
 };
 
-onMounted(() => {
+onMounted(async () => {
   // Cleanup function to clear timeout on component unmount
   return () => clearTimeout(timeoutId);
 });
