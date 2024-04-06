@@ -12,6 +12,7 @@ A front-end app created in Vue using Tailwind css and Headless UI
 ![JavaScript](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![Tailwind CSS](https://img.shields.io/badge/-Tailwind%20CSS-%2338B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Vue JS](https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D)
+![Cypress](https://img.shields.io/badge/-Cypress-%23green?style=for-the-badge&logo=cypress&logoColor=white)
 
 
 ## Getting started
@@ -49,6 +50,31 @@ Only contains home page with features like searching for an anime and gets the d
 Pagination is available with the API response, 25 items are fetched at max in one go.
 
 ![Screenshot](./screenshots/2.png)
+
+## Automated Tests with Cypress
+
+Configure the cypress config file as per Vue and Vite. After configuration is completed a cypress folder would be generated inside of which you can have your component as well as integration tests
+
+```
+npx cypress open
+```
+
+Here's the sample of config file generated after you run cypress for the first time
+
+```
+import { defineConfig } from "cypress";
+
+export default defineConfig({
+  component: {
+    devServer: {
+      framework: "vue",
+      bundler: "vite",
+    },
+  },
+});
+```
+
+For adding vue specific tests, do install cypress/vue package to virtually mount the components and test them.
 
 ## Checking Updates
 
