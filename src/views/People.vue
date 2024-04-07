@@ -13,8 +13,17 @@
       >
         People Page
       </h3>
+      {{ data }}
     </div>
   </main>
 </template>
 
-<script setup></script>
+<script setup>
+import useApi from "../composables/useApi";
+
+const { data, error, fetchData } = useApi();
+
+fetchData('people/1');
+
+
+</script>
