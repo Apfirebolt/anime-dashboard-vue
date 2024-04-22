@@ -2,10 +2,10 @@ const navigation = [
     {
       name: "Pages",
       children: [
-        { name: "People", routeName: "People" },
-        { name: "Characters", routeName: "Character" },
-        { name: "Manga", routeName: "Manga" },
-        { name: "Home", routeName: "Home" },
+        { name: "People", routeName: "People", routeText: "people" },
+        { name: "Characters", routeName: "Character", routeText: "characters" },
+        { name: "Manga", routeName: "Manga", routeText: "manga" },
+        { name: "Home", routeName: "Home", routeText: "home" },
       ],
     },
   ];
