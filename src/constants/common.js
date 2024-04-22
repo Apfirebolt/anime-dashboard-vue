@@ -1,6 +1,6 @@
 const navigation = [
     {
-      name: "Pages",
+      name: "pages",
       children: [
         { name: "People", routeName: "People", routeText: "people" },
         { name: "Characters", routeName: "Character", routeText: "characters" },

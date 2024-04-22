@@ -29,6 +29,8 @@
         </div>
         <!-- Dropdown -->
         <Dropdown :navigate-to="navigateTo" :navigation="navigation" />
+        <!-- Language selection -->
+        <LanguageSelection />
       </div>
 
       <!-- Mobile menu, show/hide this `div` based on menu open/closed state -->
@@ -104,8 +106,7 @@
               </h2>
               <h3
                 class="mt-6 md:mt-10 text-md lg:text-xl text-center md:text-left text-gray-700 font-light tracking-wider leading-relaxed">
-                Jikan is an unofficial api for the website called "myAnimeList".
-                It has a lot of useful end-points to be used to call.
+                {{ $t("site_description") }}
               </h3>
               <p v-if="animeList && animeList.data && animeList.data.length > 0">
                 <span class="text-sm text-gray-500">Showing results for </span>
@@ -122,22 +123,6 @@
                 </button>
               </div>
             </div>
-            <div class="">
-              <select
-                v-model="selectedLanguage"
-                class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="en">English</option>
-                <option value="hi">Hindi</option>
-                <option value="de">German</option>
-              </select>
-
-              <button @click="changeLanguage" class="px-2 bg-green-700 py-3 text-white">
-                Change Language
-              </button>
-            </div>
-            <p>
-              {{ $t("characters") }}
-            </p>
             <div class="w-full md:w-1/2 flex justify-center md:justify-end">
               <img class="py-3 px-2"
                 src="https://static1.cbrimages.com/wordpress/wp-content/uploads/2020/09/Death-Note-Light-L-and-Ryuk-Cropped.jpg?q=50&fit=contain&w=1140&h=&dpr=1.5" />
@@ -186,6 +171,7 @@ import { useI18n } from "vue-i18n";
 import Loader from "../components/Loader.vue";
 import Pagination from "../components/Pagination.vue";
 import Dropdown from "../components/Dropdown.vue";
+import LanguageSelection from "../components/LanguageSelection.vue";
 import { navigation } from "../constants/common";
 import Logo from "../components/Logo.vue";
 import {
@@ -210,7 +196,6 @@ const searchText = ref("");
 const currentPage = ref(1);
 const selectedLanguage = ref("en");
 const router = useRouter();
-const { t: $t, locale } = useI18n();
 let timeoutId;
 
 // provide a message to the child components
@@ -236,11 +221,6 @@ const isLoadingAnimeList = computed(() => anime.isLoading);
 
 const navigateTo = (routeName) => {
   router.push({ name: routeName });
-};
-
-// A function to change language
-const changeLanguage = () => {
-  locale.value = selectedLanguage.value;
 };
 
 const onPageChange = async (page) => {

@@ -47,6 +47,8 @@
         </div>
         <!-- Dropdown -->
         <Dropdown :navigate-to="navigateTo" :navigation="navigation" />
+        <!-- Language selection -->
+        <LanguageSelection />
       </div>
 
       <!-- Mobile menu, show/hide this `div` based on menu open/closed state -->
@@ -247,6 +249,7 @@ import { useRouter } from "vue-router";
 import Loader from "../components/Loader.vue";
 import Pagination from "../components/Pagination.vue";
 import Dropdown from "../components/Dropdown.vue";
+import LanguageSelection
 import { navigation } from "../constants/common";
 import Logo from "../components/Logo.vue";
 import {

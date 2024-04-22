@@ -2,5 +2,9 @@
     "people": "People",
     "home": "Home",
     "characters": "Characters",
-    "manga": "Manga"
+    "manga": "Manga",
+    "pages": "Pages",
+    "choose_language": "Choose language",
+
+    "site_description": "Jikan is an unofficial api for the website called 'myAnimeList'. It has a lot of useful end-points to be used to call."
   }

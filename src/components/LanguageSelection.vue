@@ -1,12 +1,12 @@
 <template>
   <div class="ml-10 pr-4 flex-shrink-0 flex items-center space-x-10">
     <nav aria-label="Global" class="flex space-x-10">
-      <template v-for="item in navigation" :key="item.name">
-        <Menu as="div" v-if="item.children.length" class="relative text-left">
+      <template v-for="option in languageOption" :key="option.name">
+        <Menu as="div" class="relative text-left">
           <MenuButton
             class="flex items-center px-3 py-2 text-sm font-medium text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-800"
           >
-            <span>{{ $t("pages") }}</span>
+            <span>{{ $t(option.name) }}</span>
             <ChevronDownIcon
               class="ml-1 h-5 w-5 text-gray-500"
               aria-hidden="true"
@@ -26,46 +26,47 @@
             >
               <div class="py-1">
                 <MenuItem
-                  v-for="child in item.children"
-                  @click="navigateTo(child.routeName)"
-                  :key="child.name"
+                  v-for="language in option.children"
+                  @click="changeLanguage(language.code)"
+                  :key="language.name"
                   v-slot="{ active }"
                 >
-                  <a
-                    :href="child.href"
-                    :class="[
-                      active ? 'bg-gray-100' : '',
-                      'block px-4 py-2 text-sm text-gray-700',
-                    ]"
-                  >
-                    {{ $t(child.routeText) }}
-                  </a>
+                  <p class="block px-4 py-2 text-sm text-gray-700">
+                    {{ language.name }}
+                  </p>
                 </MenuItem>
               </div>
             </MenuItems>
           </transition>
         </Menu>
-        <a v-else class="text-sm font-medium text-gray-900">{{ item.name }}</a>
       </template>
     </nav>
   </div>
 </template>
 
 <script setup>
+import { ref } from "vue";
+import { useI18n } from "vue-i18n";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 import {
   ArchiveIcon as ArchiveIconSolid,
   ChevronDownIcon,
 } from "@heroicons/vue/solid";
 
-defineProps({
-  navigateTo: {
-    type: Function,
-    required: true,
+const { t: $t, locale } = useI18n();
+const languageOption = ref([
+  {
+    name: "choose_language",
+    children: [
+      { name: "English", code: "en" },
+      { name: "German", code: "de" },
+      { name: "Hindi", code: "hi" },
+    ],
   },
-  navigation: {
-    type: Array,
-    required: true,
-  },
-});
+]);
+
+const changeLanguage = (code) => {
+  console.log(code);
+  locale.value = code;
+};
 </script>
