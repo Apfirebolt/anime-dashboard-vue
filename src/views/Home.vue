@@ -115,11 +115,11 @@
               <div class="mt-10 flex flex-col sm:flex-row justify-center md:justify-start">
                 <a href="https://docs.api.jikan.moe/"
                   class="w-full sm:w-40 px-4 py-3 rounded font-semibold text-md bg-blue-500 text-white border-2 border-blue-500">
-                  Read the Docs
+                  {{ $t("read_docs") }}
                 </a>
                 <button
                   class="w-full mt-4 sm:mt-0 sm:ml-4 sm:w-40 px-4 py-3 rounded font-semibold text-md bg-white text-blue-500 border-2 border-gray-500">
-                  Watch a Demo
+                  {{ $t("watch_demo") }}
                 </button>
               </div>
             </div>

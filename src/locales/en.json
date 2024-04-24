@@ -6,5 +6,7 @@
     "pages": "Pages",
     "choose_language": "Choose language",
 
-    "site_description": "Jikan is an unofficial api for the website called 'myAnimeList'. It has a lot of useful end-points to be used to call."
+    "site_description": "Jikan is an unofficial api for the website called 'myAnimeList'. It has a lot of useful end-points to be used to call.",
+    "read_docs": "Read the docs",
+    "watch_demo": "Watch the demo"
   }

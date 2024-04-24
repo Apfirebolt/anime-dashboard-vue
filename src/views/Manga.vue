@@ -249,7 +249,6 @@ import { useRouter } from "vue-router";
 import Loader from "../components/Loader.vue";
 import Pagination from "../components/Pagination.vue";
 import Dropdown from "../components/Dropdown.vue";
-import LanguageSelection
 import { navigation } from "../constants/common";
 import Logo from "../components/Logo.vue";
 import {
