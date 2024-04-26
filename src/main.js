@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { createI18n } from 'vue-i18n'
+import { MotionPlugin } from '@vueuse/motion'
 import './style.css'
 import router from './routes'
 import App from './App.vue'
@@ -26,6 +27,7 @@ const i18n = createI18n({
 const app = createApp(App)
 app.use(router)
 app.use(createPinia())
+app.use(MotionPlugin)
 app.use(i18n)
 app.mount('#app');
 

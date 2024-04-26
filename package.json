@@ -13,6 +13,7 @@
     "@cypress/vue": "^6.0.0",
     "@headlessui/vue": "^1.7.19",
     "@heroicons/vue": "^1.0.6",
+    "@vueuse/motion": "^2.1.0",
     "axios": "^1.6.8",
     "dayjs": "^1.11.10",
     "express": "^4.19.2",

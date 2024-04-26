@@ -98,7 +98,13 @@
         <div v-if="isLoadingAnimeList" class="flex justify-center items-center my-3">
           <Loader />
         </div>
-        <div class="flex px-6 md:px-12 items-center justify-center bg-hero overflow-hidden">
+        <div v-motion :initial="{
+            opacity: 0,
+            y: 100,
+          }" :enter="{
+            opacity: 1,
+            y: 0,
+          }" class="flex px-6 md:px-12 items-center justify-center bg-hero overflow-hidden">
           <div class="flex flex-col gap-6 md:flex-row items-center max-w-8xl">
             <div class="w-full md:w-1/2 lg:pr-32">
               <h2 class="text-4xl lg:text-5xl text-center md:text-left text-blue-900 leading-tight font-medium">
