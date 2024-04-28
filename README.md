@@ -76,6 +76,49 @@ export default defineConfig({
 
 For adding vue specific tests, do install cypress/vue package to virtually mount the components and test them.
 
+## ESLint Installation
+
+1. Install ESLint and Eslint-Plugin-Vue
+
+```
+npm install eslint --save-dev
+npm install --save-dev eslint eslint-plugin-vue
+```
+
+2. Manually create the eslint config file 'eslint.config.js'
+
+```
+import pluginVue from 'eslint-plugin-vue'
+export default [
+    ...pluginVue.configs['flat/recommended'],
+    // ...pluginVue.configs['flat/vue2-recommended'], // Use this if you are using Vue.js 2.x.
+    {
+        rules: {
+            // override/add rules settings here, such as:
+            // 'vue/no-unused-vars': 'error'
+            'no-console': 'error' // Enable console statements.
+        }
+    }
+]
+```
+3. Add Linting and fixing scripts in the package.json file 
+
+```
+"lint": "eslint .",
+"lint:fix": "eslint --fix .",
+```
+
+3. At this point of time, linting should have been added to your project. Add Husky and pre-commit hooks
+
+```
+npx husky-init 
+```
+
+Npx is a tool included with npm that allows you to execute packages from the npm registry without installing them globally.
+You can achieve the same functionality by installing Husky explicitly with npm install husky --save-dev followed by npx husky install to initialize the hooks. However, npx husky-init is a convenient one-step approach.
+
+After running npx husky-init, you'll need to configure the pre-commit hook behavior further. You can define which scripts or commands to run before commit using your project's configuration files (like .eslintrc.js for ESLint).
+
 ## Checking Updates
 
 Check if there are updates available for NPM packages used in this project.
