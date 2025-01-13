@@ -14,16 +14,19 @@
         People Page
       </h3>
       {{ data }}
+      <PeopleList />
     </div>
   </main>
 </template>
 
 <script setup>
 import useApi from "../composables/useApi";
+import { provide } from 'vue';
+import PeopleList from "../components/PeopleList.vue";
 
 const { data, error, fetchData } = useApi();
 
 fetchData('people/1');
 
-
+provide('apiData', data);
 </script>
