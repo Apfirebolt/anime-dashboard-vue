@@ -154,6 +154,41 @@ No issues as of now, issues would be added here to be addressed later.
 ## Changelog
 
 - April 2024 : Initial Release with basic features from anime search page.
+- March 2025 : Added Masonry layout using the following snippet
+
+``` Vue
+<div v-if="characterList && characterList.data" class="columns-1 sm:columns-2 lg:columns-3 gap-4 p-4">
+    <div
+      v-for="item in characterList.data"
+      :key="item.id"
+      class="break-before-avoid g-white px-4 mb-4 py-6 shadow sm:rounded-lg sm:px-6 bg-primary-900 text-white"
+    >
+      <div class="sm:flex sm:justify-between sm:items-baseline">
+        <h3 class="text-base font-medium bg-slate-600 text-white px-2 py-1 rounded-md">
+          {{ item.name }}
+        </h3>
+      </div>
+      <div class="mt-4 space-y-6">
+        <p>
+          {{ item.about }}
+        </p>
+      </div>
+      <!--Contains images-->
+      <div
+        v-if="item.images && item.images.jpg"
+        class="my-3 flex justify-center"
+      >
+        <img
+          :src="item.images.jpg.image_url"
+          alt=""
+          class="shadow-lg rounded-md"
+        />
+      </div>
+    </div>
+  </div>
+```
+
+Columns and break-before-avoid are vital classes used for achieving masonry layout and avoids the container to occupy full space.
 
 ## Stay In Touch
 

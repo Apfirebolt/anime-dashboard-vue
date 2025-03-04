@@ -204,20 +204,18 @@
             class="min-h-0 flex-1 overflow-y-auto"
           >
             <!-- Thread section-->
-            <ul v-if="characterList && characterList.data" role="list" class="py-4 space-y-2 sm:px-6 sm:space-y-4 lg:px-8">
-              <li
+            <div v-if="characterList && characterList.data" class="columns-1 sm:columns-2 lg:columns-3 gap-4 p-4">
+              <div
                 v-for="item in characterList.data"
                 :key="item.id"
-                class="bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6"
+                class="break-before-avoid g-white px-4 mb-4 py-6 shadow sm:rounded-lg sm:px-6 bg-primary-900 text-white"
               >
                 <div class="sm:flex sm:justify-between sm:items-baseline">
-                  <h3 class="text-base font-medium">
-                    <span class="text-primary-700 text-lg">{{
-                      item.name
-                    }}</span>
+                  <h3 class="text-base font-medium bg-slate-600 text-white px-2 py-1 rounded-md">
+                    {{ item.name }}
                   </h3>
                 </div>
-                <div class="mt-4 space-y-6 text-sm text-gray-800">
+                <div class="mt-4 space-y-6">
                   <p>
                     {{ item.about }}
                   </p>
@@ -233,8 +231,8 @@
                     class="shadow-lg rounded-md"
                   />
                 </div>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
         </section>
       </main>

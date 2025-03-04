@@ -169,7 +169,8 @@
                 class="mt-6 md:mt-10 text-md lg:text-xl text-center md:text-left text-gray-700 font-light tracking-wider leading-relaxed"
               >
                 Jikan is an unofficial api for the website called "myMangaList".
-                It has a lot of useful end-points to be used to call. On this page you can search for Manga.
+                It has a lot of useful end-points to be used to call. On this
+                page you can search for Manga.
               </h3>
               <p
                 v-if="mangaList && mangaList.data && mangaList.data.length > 0"
@@ -203,12 +204,14 @@
             v-if="!isLoadingMangaList"
             class="min-h-0 flex-1 overflow-y-auto"
           >
-            <!-- Thread section-->
-            <ul v-if="mangaList && mangaList.data" role="list" class="py-4 space-y-2 sm:px-6 sm:space-y-4 lg:px-8">
-              <li
+            <!-- Masonry grid layout -->
+            <div
+              class="columns-1 sm:columns-2 lg:columns-3 gap-4 p-4"
+            >
+              <div
                 v-for="item in mangaList.data"
                 :key="item.id"
-                class="bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6"
+                class="break-inside-avoid mb-4 bg-white p-4 shadow sm:rounded-lg"
               >
                 <div class="sm:flex sm:justify-between sm:items-baseline">
                   <h3 class="text-base font-medium">
@@ -222,7 +225,7 @@
                     {{ item.synopsis }}
                   </p>
                 </div>
-                <!--Contains images-->
+                <!-- Contains images -->
                 <div
                   v-if="item.images && item.images.jpg"
                   class="my-3 flex justify-center"
@@ -233,8 +236,8 @@
                     class="shadow-lg rounded-md"
                   />
                 </div>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
         </section>
       </main>
