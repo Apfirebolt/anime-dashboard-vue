@@ -190,6 +190,77 @@ No issues as of now, issues would be added here to be addressed later.
 
 Columns and break-before-avoid are vital classes used for achieving masonry layout and avoids the container to occupy full space.
 
+## Kubernetes Deployment
+
+Push the docker image to dockerhub, in my case the image name I'd be using is new-anime from my Dockerhub profile.
+
+``` YAML
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: new-anime-deployment  # Name for your deployment
+spec:
+  replicas: 2  # Number of pods (2 in this case)
+  selector:
+    matchLabels:
+      app: new-anime  # Label to identify pods belonging to this deployment
+  template:
+    metadata:
+      labels:
+        app: new-anime  # Labels for the pods in the deployment
+    spec:
+      containers:
+      - name: new-anime  # Container name
+        image: aspper/new-anime:latest  # Your image reference
+        # Add any container specific configurations here (e.g., ports, resources)
+        ports:
+        - containerPort: 80  # Port your application listens on
+
+```
+
+Use the following command to initiate a deployment
+
+```
+kubectl apply -f anime-deployment.yaml
+```
+
+Next, we create a service to expose pods created via deployment externally through port.
+
+``` YAML
+apiVersion: v1
+kind: Service
+metadata:
+  name: new-anime-service  # Name for your service
+spec:
+  type: NodePort  # Service type as NodePort
+  selector:
+    app: new-anime  # Matches pods with the label
+  ports:
+  - protocol: TCP  # Protocol
+    port: 3000  # External port to access the service
+    targetPort: 80  # Port on the pods that the service will route traffic to
+
+```
+
+We deploy the service using this command
+
+```
+kubectl apply -f anime-service.yaml
+```
+
+Get the names of the pods created in this deployment.
+
+```
+kubectl get pods
+```
+
+Expose external port to access this service using port forwarding
+
+```
+kubectl port-forward pod/new-anime-deployment-554d75f8d8-wn6ms 8080:80
+```
+
+
 ## Stay In Touch
 
 - [Twitter](https://twitter.com/vuejs)
