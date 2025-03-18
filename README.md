@@ -19,6 +19,8 @@ A front-end app created in Vue using Tailwind css and Headless UI
 
 The project uses Vite build tool for lighting-fast modern single-page application development. It is expected to have Node installed on your system. Then, run the conventional npm commands to see the project in action.
 
+This project is available at https://anime-dashboard-vue.vercel.app/character for the time being.
+
 ```
 npm install
 npm run build
