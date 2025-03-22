@@ -194,10 +194,10 @@
         >
           <Pagination
             v-if="characterList && characterList.pagination"
-            :totalPages="characterList.pagination.last_visible_page"
-            :currentPage="characterList.pagination.current_page"
-            :nextPage="characterList.pagination.has_next_page"
-            :onPageChange="onPageChange"
+            :total-pages="characterList.pagination.last_visible_page"
+            :current-page="characterList.pagination.current_page"
+            :next-page="characterList.pagination.has_next_page"
+            :on-page-change="onPageChange"
           />
           <div
             v-if="!isLoadingCharacterList"

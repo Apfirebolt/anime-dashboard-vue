@@ -66,7 +66,6 @@ const languageOption = ref([
 ]);
 
 const changeLanguage = (code) => {
-  console.log(code);
   locale.value = code;
 };
 </script>
