@@ -168,11 +168,16 @@
               <h3
                 class="mt-6 md:mt-10 text-md lg:text-xl text-center md:text-left text-gray-700 font-light tracking-wider leading-relaxed"
               >
-                Jikan is an unofficial api for the website called "mycharacterList".
-                It has a lot of useful end-points to be used to call. On this page you can search for Characters.
+                Jikan is an unofficial api for the website called
+                "mycharacterList". It has a lot of useful end-points to be used
+                to call. On this page you can search for Characters.
               </h3>
               <p
-                v-if="characterList && characterList.data && characterList.data.length > 0"
+                v-if="
+                  characterList &&
+                  characterList.data &&
+                  characterList.data.length > 0
+                "
               >
                 <span class="text-sm text-gray-500">Showing results for </span>
                 <span class="text-sm font-medium text-gray-500"
@@ -204,32 +209,43 @@
             class="min-h-0 flex-1 overflow-y-auto"
           >
             <!-- Thread section-->
-            <div v-if="characterList && characterList.data" class="columns-1 sm:columns-2 lg:columns-3 gap-4 p-4">
+            <div
+              v-if="characterList && characterList.data"
+              class="columns-1 sm:columns-2 lg:columns-3 gap-6 p-4"
+            >
               <div
                 v-for="item in characterList.data"
                 :key="item.id"
-                class="break-before-avoid g-white px-4 mb-4 py-6 shadow sm:rounded-lg sm:px-6 bg-primary-900 text-white"
+                class="break-inside-avoid mb-6 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100"
               >
-                <div class="sm:flex sm:justify-between sm:items-baseline">
-                  <h3 class="text-base font-medium bg-slate-600 text-white px-2 py-1 rounded-md">
-                    {{ item.name }}
-                  </h3>
-                </div>
-                <div class="mt-4 space-y-6">
-                  <p>
-                    {{ item.about }}
-                  </p>
-                </div>
                 <!--Contains images-->
                 <div
                   v-if="item.images && item.images.jpg"
-                  class="my-3 flex justify-center"
+                  class="relative overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50"
                 >
                   <img
                     :src="item.images.jpg.image_url"
                     alt=""
-                    class="shadow-lg rounded-md"
+                    class="w-full h-auto object-cover"
                   />
+                </div>
+
+                <div class="p-5">
+                  <div class="sm:flex sm:justify-between sm:items-start mb-4">
+                    <h3
+                      class="text-lg font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-lg shadow-sm inline-block"
+                    >
+                      {{ item.name }}
+                    </h3>
+                  </div>
+
+                  <div class="mt-3">
+                    <p
+                      class="text-gray-700 text-sm leading-relaxed line-clamp-6"
+                    >
+                      {{ item.about }}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

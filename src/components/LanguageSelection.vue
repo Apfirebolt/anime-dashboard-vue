@@ -4,13 +4,10 @@
       <template v-for="option in languageOption" :key="option.name">
         <Menu as="div" class="relative text-left">
           <MenuButton
-            class="flex items-center px-3 py-2 text-sm font-medium text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-800"
+            class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all duration-200 shadow-sm"
           >
             <span>{{ $t(option.name) }}</span>
-            <ChevronDownIcon
-              class="ml-1 h-5 w-5 text-gray-500"
-              aria-hidden="true"
-            />
+            <ChevronDownIcon class="h-4 w-4 text-gray-500" aria-hidden="true" />
           </MenuButton>
 
           <transition
@@ -22,7 +19,7 @@
             leave-to-class="transform opacity-0 scale-95"
           >
             <MenuItems
-              class="origin-top-right absolute z-30 right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+              class="origin-top-right absolute z-30 right-0 mt-2 w-48 rounded-lg shadow-xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none divide-y divide-gray-100"
             >
               <div class="py-1">
                 <MenuItem
@@ -31,7 +28,12 @@
                   :key="language.name"
                   v-slot="{ active }"
                 >
-                  <p class="block px-4 py-2 text-sm text-gray-700">
+                  <p
+                    :class="[
+                      active ? 'bg-red-50 text-red-700' : 'text-gray-700',
+                      'block px-4 py-2.5 text-sm cursor-pointer transition-colors duration-150 hover:bg-red-50 hover:text-red-700',
+                    ]"
+                  >
                     {{ language.name }}
                   </p>
                 </MenuItem>
