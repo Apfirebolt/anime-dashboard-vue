@@ -262,6 +262,11 @@ Expose external port to access this service using port forwarding
 kubectl port-forward pod/new-anime-deployment-554d75f8d8-wn6ms 8080:80
 ```
 
+## Running Test Cases
+
+```shell
+npx cypress run --component --spec "cypress/component/Header.cy.js"
+```
 
 ## Stay In Touch
 
